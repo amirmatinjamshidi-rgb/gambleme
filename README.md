@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment
+
+Copy the example env file and set a session signing secret before running the app (required once server sessions are wired up):
+
+```bash
+cp .env.local.example .env.local
+```
+
+Edit `.env.local` and replace `SESSION_SECRET` with a long random string (at least 32 characters). Do not commit `.env.local`.
+
 ## Getting Started
 
 First, run the development server:
