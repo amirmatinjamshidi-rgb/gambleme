@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import {
+  CRASH_MIN_CASHOUT,
   DICE_MAX_TARGET,
   DICE_MIN_TARGET,
   MAX_BET,
@@ -59,8 +60,22 @@ export type CrashBetInput = z.infer<typeof crashBetInputSchema>;
 
 export const crashCashoutInputSchema = z.object({
   roundId: z.string().min(1),
+  cashoutAt: z.number().min(CRASH_MIN_CASHOUT).max(1000),
 });
 export type CrashCashoutInput = z.infer<typeof crashCashoutInputSchema>;
+
+export const crashBustInputSchema = z.object({
+  roundId: z.string().min(1),
+});
+export type CrashBustInput = z.infer<typeof crashBustInputSchema>;
+
+export const crashStartResultSchema = z.object({
+  roundId: z.string(),
+  serverSeedHash: z.string(),
+  bet: z.number(),
+  newBalance: z.number(),
+});
+export type CrashStartResult = z.infer<typeof crashStartResultSchema>;
 
 export const slotSpinResultSchema = z.object({
   spinId: z.string(),
@@ -93,6 +108,12 @@ export const crashRoundResultSchema = z.object({
   newBalance: z.number(),
 });
 export type CrashRoundResult = z.infer<typeof crashRoundResultSchema>;
+
+export const crashSettleResultSchema = crashRoundResultSchema.extend({
+  serverSeed: z.string(),
+  serverSeedHash: z.string(),
+});
+export type CrashSettleResult = z.infer<typeof crashSettleResultSchema>;
 
 export const historyEntrySchema = z.object({
   id: z.string(),
