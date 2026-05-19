@@ -65,7 +65,6 @@ export function Dice3D({ className, size = 120 }: Dice3DProps) {
       </defs>
 
       <g filter="url(#dice-glow)">
-        {/* Isometric cube faces */}
         <polygon
           points="60,18 95,38 60,58 25,38"
           fill="url(#dice-top)"

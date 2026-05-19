@@ -1,6 +1,6 @@
 {
   "name": "gambleme",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "overrides": {
-  "postcss": "^8.5.10"
-},
+    "postcss": "^8.5.10"
+  },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
