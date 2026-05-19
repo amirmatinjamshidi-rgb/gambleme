@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
+import { useAnime } from "@/hooks/useAnime";
 import { cn } from "@/lib/utils";
 
 export type GoldChipProps = {
@@ -8,15 +11,39 @@ export type GoldChipProps = {
 };
 
 export function GoldChip({ className, size = 80 }: GoldChipProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { animate, reducedMotion } = useAnime();
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap || reducedMotion) return;
+
+    animate(wrap, {
+      rotateY: [0, 360],
+      duration: 5500,
+      ease: "linear",
+      loop: true,
+    });
+  }, [animate, reducedMotion]);
+
   return (
+    <div
+      ref={wrapRef}
+      className={cn("inline-flex will-change-transform", className)}
+      style={{
+        perspective: 800,
+        transformStyle: "preserve-3d",
+      }}
+    >
     <svg
       width={size}
       height={size}
       viewBox="0 0 80 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn("drop-shadow-[0_0_16px_rgb(245_196_81/0.5)]", className)}
+      className="drop-shadow-[0_0_16px_rgb(245_196_81/0.5)]"
       aria-hidden
+      suppressHydrationWarning
     >
       <defs>
         <linearGradient id="chip-face" x1="0.2" y1="0" x2="0.8" y2="1">
@@ -112,5 +139,6 @@ export function GoldChip({ className, size = 80 }: GoldChipProps) {
         </text>
       </g>
     </svg>
+    </div>
   );
 }
